@@ -1,0 +1,24 @@
+<h2>Categories Top Level</h2>
+
+<ul>
+    <li ng-repeat="category in vm.categoriesTopLevel">
+        id: <strong ng-bind="category.id"></strong><br>
+        name: <strong ng-bind="category.name"></strong><br>
+        children: <a href ng-click="vm.categories(vm.apiUrl+category.links.children)"
+                     ng-bind="vm.apiUrl+category.links.children"></a>
+    </li>
+</ul>
+
+<ul ng-if="vm.children">
+    <li ng-repeat="child in vm.children">
+        id: <strong ng-bind="child.id"></strong><br>
+        name: <strong ng-bind="child.name"></strong><br>
+        children: <a href ng-click="vm.categories(vm.apiUrl+child.links.children)"
+                     ng-bind="vm.apiUrl+child.links.children"></a>
+    </li>
+</ul>
+
+<pre ng-bind="vm.categoriesTopLevel|json"></pre>
+
+<h2>Categories</h2>
+<pre ng-bind="vm.categories|json"></pre>
