@@ -15,11 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from core.views import CategoryTopLevel, CategoryView, CategoryDetail
+from core.views import (CategoryTopLevel, CategoryView, CategoryDetail, ExternalCategoryCreateView,
+                        ExternalCategoryListView, AssociationCreateView, AssociationListView)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    # Category
     url(r'^categories-top-level/$', CategoryTopLevel.as_view(), name='category-top-level'),
     url(r'^categories/$', CategoryView.as_view(), name='categories'),
     url(r'^category/(?P<pk>\d+)/$', CategoryDetail.as_view(), name='category'),
+    # External category
+    url(r'^external-category/$', ExternalCategoryCreateView.as_view(), name='external-category'),
+    url(r'^external-categories/$', ExternalCategoryListView.as_view(), name='external-categories'),
+    # Association
+    url(r'^association/$', AssociationCreateView.as_view(), name='association'),
+    url(r'^associations/$', AssociationListView.as_view(), name='associations'),
 ]

@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .serializers import CategorySerializer
-from .models import Category
+from .serializers import CategorySerializer, ExternalCategorySerializer, AssociationSerializer
+from .models import Category, ExternalCategory, Association
 
 
 class CategoryTopLevel(generics.ListAPIView):
@@ -15,7 +15,7 @@ class CategoryView(generics.ListAPIView):
         qs = Category.objects.all()
         parent = self.request.query_params.get('parent', None)
         if parent:
-            qs = qs.all().filter(parent=parent)
+            qs = qs.filter(parent=parent)
 
         return qs
 
@@ -23,3 +23,23 @@ class CategoryView(generics.ListAPIView):
 class CategoryDetail(generics.RetrieveAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
+
+
+class ExternalCategoryCreateView(generics.CreateAPIView):
+    serializer_class = ExternalCategorySerializer
+    queryset = ExternalCategory.objects.all()
+
+
+class ExternalCategoryListView(generics.ListAPIView):
+    serializer_class = ExternalCategorySerializer
+    queryset = ExternalCategory.objects.all()
+
+
+class AssociationCreateView(generics.CreateAPIView):
+    serializer_class = AssociationSerializer
+    queryset = Association.objects.all()
+
+
+class AssociationListView(generics.ListAPIView):
+    serializer_class = AssociationSerializer
+    queryset = Association.objects.all()
